@@ -1230,7 +1230,7 @@ function sendOrderToWhatsApp() {
     }
 
     // Teléfono de La Casita
-    const phoneNumber = '521234567890'; 
+    const phoneNumber = '4491892487'; 
 
     // Cabecera del mensaje
     let message = `🏡 *LA CASITA - NUEVO PEDIDO* 🏡\n`;
