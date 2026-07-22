@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="La Casita - Menú Interactivo. Disfruta de nuestros deliciosos tacos, tortas, chilaquiles, papas asadas, hamburguesas y mariscos con el mejor sabor. Pide fácil y rápido por WhatsApp.">
+    <meta name="theme-color" content="#d32f2f">
+    <title>La Casita | Menú Interactivo & Pedidos por WhatsApp</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Estilos Personalizados -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ==========================================
+       HERO BANNER / ENCABEZADO
+       ========================================== -->
+    <header class="hero-banner">
+        <img src="assets/logo.jpg" alt="La Casita Logo" class="hero-logo" id="restaurant-logo">
+        <h1 class="hero-title" style="font-family: 'Playfair Display', serif; font-style: italic; text-transform: none;">La Casita</h1>
+        <p class="hero-subtitle">¡Tacos, tortas, hamburguesas, papas asadas y más con el auténtico sabor casero!</p>
+        
+        <div class="hero-badges">
+            <div class="badge-info">
+                <i class="fas fa-clock"></i>
+                <span>Abierto: 2:00 PM - 11:00 PM</span>
+            </div>
+            <div class="badge-info">
+                <i class="fas fa-motorcycle"></i>
+                <span>Servicio a Domicilio / Recoger</span>
+            </div>
+            <div class="badge-info">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Sabor e Higiene Garantizados</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+       SECCIÓN DE BUSCADOR Y CATEGORÍAS (STICKY)
+       ========================================== -->
+    <div class="controls-section">
+        <div class="controls-container">
+            <!-- Buscador -->
+            <div class="search-wrapper">
+                <input type="text" id="search-input" class="search-input" placeholder="Buscar tacos, papas, hamburguesas...">
+                <button id="clear-search" class="clear-search-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <!-- Deslizador de Categorías -->
+            <nav class="categories-slider" aria-label="Categorías de menú">
+                <button class="category-btn active" data-category="todos">🍽️ Todo</button>
+                <button class="category-btn" data-category="tacos">🌮 Tacos</button>
+                <button class="category-btn" data-category="tortas">🥪 Tortas</button>
+                <button class="category-btn" data-category="chilaquiles">🌶️ Chilaquiles</button>
+                <button class="category-btn" data-category="papas">🍟 Papas</button>
+                <button class="category-btn" data-category="especialidad-papas">🥔 Especialidades</button>
+                <button class="category-btn" data-category="papa-asada">🥔 Papa Asada</button>
+                <button class="category-btn" data-category="tostitos">🌽 Tostitos</button>
+                <button class="category-btn" data-category="camarones">🍤 Camarones</button>
+                <button class="category-btn" data-category="sandwich">🥪 Sandwich</button>
+                <button class="category-btn" data-category="nachos">🧀 Nachos</button>
+                <button class="category-btn" data-category="hamburguesas">🍔 Hamburguesas</button>
+                <button class="category-btn" data-category="hot-dog">🌭 Hot-Dogs</button>
+                <button class="category-btn" data-category="alitas">🍗 Alitas</button>
+                <button class="category-btn" data-category="boneless">🍗 Boneless</button>
+                <button class="category-btn" data-category="bebidas">🥤 Bebidas</button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       CONTENEDOR DE PRODUCTOS
+       ========================================== -->
+    <main class="menu-section">
+        <div id="products-grid" class="products-grid">
+            <!-- Tarjetas de productos inyectadas dinámicamente por JavaScript -->
+        </div>
+    </main>
+
+    <!-- ==========================================
+       DOCK Y BOTÓN FLOTANTE DEL CARRITO
+       ========================================== -->
+    <button id="cart-toggle-btn" class="cart-toggle-btn" aria-label="Ver carrito de compras">
+        <i class="fas fa-shopping-basket"></i>
+        <span id="cart-badge" class="cart-badge">0</span>
+    </button>
+
+    <!-- Overlay y Sidebar del Carrito -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+    
+    <aside id="cart-sidebar" class="cart-sidebar" aria-label="Carrito de compras">
+        <div class="cart-header">
+            <h2><i class="fas fa-shopping-cart text-primary me-2"></i>Tu Orden</h2>
+            <button id="close-cart" class="close-cart-btn" aria-label="Cerrar carrito">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Lista de productos agregados -->
+        <div id="cart-items-container" class="cart-items-wrapper">
+            <!-- Inyectado dinámicamente por JS -->
+        </div>
+        
+        <!-- Formulario de Checkout y Datos de Envío -->
+        <div class="cart-checkout-form">
+            <div class="form-group">
+                <label for="customer-name">Tu Nombre</label>
+                <input type="text" id="customer-name" class="form-input" placeholder="Ej. Juan Pérez" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="customer-notes">Notas del Pedido (Opcional)</label>
+                <input type="text" id="customer-notes" class="form-input" placeholder="Ej. Sin cebolla, aderezo aparte, etc.">
+            </div>
+
+            <!-- Tipo de entrega -->
+            <div class="form-group">
+                <label for="delivery-method">Tipo de Entrega</label>
+                <select id="delivery-method" class="form-input">
+                    <option value="recoger">Comer aquí / Recoger en sucursal ($0)</option>
+                    <option value="envio">Envío a domicilio</option>
+                </select>
+            </div>
+
+            <!-- Rango de Envío -->
+            <div id="delivery-distance-wrapper" class="form-group d-none">
+                <label for="delivery-distance">Costo de Envío (Distancia)</label>
+                <select id="delivery-distance" class="form-input">
+                    <option value="0-3">De 0 a 3 kilómetros (+$15)</option>
+                    <option value="3-6">De 3 a 6 kilómetros (+$25)</option>
+                </select>
+            </div>
+
+            <!-- Dirección de Entrega -->
+            <div id="delivery-address-wrapper" class="form-group d-none">
+                <label for="delivery-address">Dirección Completa</label>
+                <input type="text" id="delivery-address" class="form-input" placeholder="Calle, número, colonia y referencias">
+            </div>
+            
+            <div class="form-row d-flex gap-2">
+                <div class="form-group w-100">
+                    <label for="payment-method">Método de Pago</label>
+                    <select id="payment-method" class="form-input">
+                        <option value="efectivo">Efectivo</option>
+                        <option value="transferencia">Transferencia</option>
+                        <option value="tarjeta">Tarjeta (Contra entrega)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Cambio para pago en efectivo -->
+            <div id="cash-change-wrapper" class="form-group">
+                <label for="cash-change">¿Con cuánto pagas? (Para cambio)</label>
+                <input type="number" id="cash-change" class="form-input" placeholder="Ej. 200, 500">
+            </div>
+            
+            <!-- Resumen de Totales -->
+            <div id="cart-subtotal" class="cart-summary">
+                <!-- Inyectado dinámicamente con desglose por JS -->
+            </div>
+            
+            <button id="checkout-btn" class="btn btn-accent w-100 mt-2" disabled>
+                <i class="fab fa-whatsapp me-2"></i> Enviar Pedido por WhatsApp
+            </button>
+        </div>
+    </aside>
+
+    <!-- ==========================================
+       MODAL DE DETALLE Y PERSONALIZACIÓN DE PRODUCTO
+       ========================================== -->
+    <div id="product-modal" class="product-modal" aria-hidden="true" role="dialog">
+        <div class="modal-content animate-fade-in">
+            <button id="close-modal" class="close-modal-btn" aria-label="Cerrar ventana">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-media">
+                <img id="modal-product-image" src="" alt="Detalle del producto">
+            </div>
+            
+            <div class="modal-body">
+                <h2 id="modal-product-name" class="modal-product-name">Nombre del Producto</h2>
+                <p id="modal-product-description" class="modal-product-description">Ingredientes y descripción completa.</p>
+                
+                <!-- Contenedor para opciones de personalización (Queso, Tocino, etc.) -->
+                <div id="modal-custom-options" class="modal-custom-options">
+                    <!-- Inyectado por JS -->
+                </div>
+                
+                <!-- Footer del modal: Cantidades y botón agregar -->
+                <div class="modal-footer">
+                    <div class="modal-qty-container">
+                        <span class="fw-bold">Cantidad:</span>
+                        <div class="qty-control-lg">
+                            <button id="modal-qty-minus" class="btn-qty-lg"><i class="fas fa-minus"></i></button>
+                            <span id="modal-qty-count" class="qty-val-lg">1</span>
+                            <button id="modal-qty-plus" class="btn-qty-lg"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    
+                    <button id="modal-add-btn" class="btn btn-primary w-100 d-flex justify-content-between align-items-center">
+                        <span>Agregar al pedido</span>
+                        <span id="modal-product-price" class="fw-bold">$0.00</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       PIE DE PÁGINA
+       ========================================== -->
+    <footer>
+        <div class="footer-socials">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="mb-2">&copy; 2026 La Casita. Todos los derechos reservados.</p>
+        <p class="text-muted small">Los precios expresados en este menú están sujetos a cambios. Imágenes de referencia.</p>
+    </footer>
+
+    <!-- Lógica de la Aplicación -->
+    <script src="app.js"></script>
+</body>
+</html>
